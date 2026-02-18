@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
 import 'package:restaurant_app/screen/detail/detail_screen.dart';
 import 'package:restaurant_app/screen/main/main_screen.dart';
-// import 'package:restaurant_app/provider/detail/add_review_provider.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
 import 'package:restaurant_app/provider/home/restaurant_list_provider.dart';
 import 'package:restaurant_app/provider/main/index_nav_provider.dart';
@@ -28,9 +27,6 @@ void main() {
         ChangeNotifierProvider(
           create: (context) => SearchProvider(context.read<ApiServices>()),
         ),
-        // ChangeNotifierProvider(
-        //   create: (context) => AddReviewProvider(context.read<ApiServices>()),
-        // ),
       ],
       child: const MainApp(),
     ),
@@ -46,7 +42,6 @@ class MainApp extends StatelessWidget {
       theme: RestaurantTheme.lightTheme,
       darkTheme: RestaurantTheme.darkTheme,
       themeMode: ThemeMode.system,
-      // home: HomeScreen(),
       initialRoute: NavigationRoute.homeRoute.name,
       routes: {
         NavigationRoute.homeRoute.name: (context) => MainScreen(),
