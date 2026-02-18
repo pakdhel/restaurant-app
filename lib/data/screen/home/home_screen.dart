@@ -35,12 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Restaurant",
-                      style: Theme.of(context).textTheme.headlineMedium,
+                      "Selamat Datang",
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     Text(
-                      "Recommendation restaurant for you!",
-                      style: Theme.of(context).textTheme.titleSmall,
+                      "Temukan Restoran Favorit Kamu",
+                      style: Theme.of(context).textTheme.displaySmall,
                     ),
                   ],
                 ),
@@ -51,9 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
               builder: (context, value, child) {
                 return switch (value.resultState) {
                   RestaurantListLoadingState() => SliverToBoxAdapter(
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                    child: const Center(child: CircularProgressIndicator()),
                   ),
                   RestaurantListLoadedState(data: var restaurantList) =>
                     SliverList(
@@ -71,8 +69,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       }, childCount: restaurantList.length),
                     ),
-                  RestaurantListErrorState(error: var message) => SliverToBoxAdapter(child: Center(child: Text(message),)),
-                  _ => SliverToBoxAdapter(child: const SizedBox())
+                  RestaurantListErrorState(error: var message) =>
+                    SliverToBoxAdapter(child: Center(child: Text(message))),
+                  _ => SliverToBoxAdapter(child: const SizedBox()),
                 };
               },
             ),

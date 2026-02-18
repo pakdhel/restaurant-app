@@ -37,20 +37,7 @@ class BodyOfDetailScreen extends StatelessWidget {
             ),
           ),
         ),
-        // SliverAppBar(
-        //   expandedHeight: 250,
-        //   pinned: true,
-        //   flexibleSpace: FlexibleSpaceBar(
-        //     background: Hero(
-        //       tag: restaurant.id,
 
-        //       child: Image.network(
-        //         restaurant.imageMediumUrl,
-        //         fit: BoxFit.cover,
-        //       ),
-        //     ),
-        //   ),
-        // ),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -93,7 +80,7 @@ class BodyOfDetailScreen extends StatelessWidget {
                 const SizedBox(height: 24),
 
                 Text(
-                  "Description",
+                  "Deskripsi",
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 8),
@@ -101,7 +88,7 @@ class BodyOfDetailScreen extends StatelessWidget {
 
                 const SizedBox(height: 24),
 
-                Text("Foods", style: Theme.of(context).textTheme.titleMedium),
+                Text("Makanan", style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 8),
                 ...restaurant.foods.map(
                   (food) => ListTile(
@@ -112,7 +99,7 @@ class BodyOfDetailScreen extends StatelessWidget {
 
                 const SizedBox(height: 16),
 
-                Text("Drinks", style: Theme.of(context).textTheme.titleMedium),
+                Text("Minuman", style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 8),
                 ...restaurant.drinks.map(
                   (drink) => ListTile(
@@ -123,7 +110,7 @@ class BodyOfDetailScreen extends StatelessWidget {
 
                 const SizedBox(height: 24),
                 Text(
-                  "Customer Reviews",
+                  "Ulasan Pengunjung",
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 12),
