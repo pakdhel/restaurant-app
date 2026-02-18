@@ -27,6 +27,34 @@ class RestaurantDetail {
     required this.reviews,
   });
 
+  RestaurantDetail copyWith({
+    String? id,
+    String? name,
+    String? description,
+    String? city,
+    String? address,
+    String? pictureId,
+    List<String>? categories,
+    List<String>? foods,
+    List<String>? drinks,
+    double? rating,
+    List<CustomerReview>? reviews,
+  }) {
+    return RestaurantDetail(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      city: city ?? this.city,
+      address: address ?? this.address,
+      pictureId: pictureId ?? this.pictureId,
+      categories: categories ?? this.categories,
+      foods: foods ?? this.foods,
+      drinks: drinks ?? this.drinks,
+      rating: rating ?? this.rating,
+      reviews: reviews ?? this.reviews,
+    );
+  }
+
   String get imageMediumUrl =>
       "https://restaurant-api.dicoding.dev/images/medium/$pictureId";
 

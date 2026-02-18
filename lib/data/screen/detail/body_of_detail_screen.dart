@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/model/restaurant_detail.dart';
+import 'package:restaurant_app/data/screen/detail/review_widget.dart';
+import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
+import 'package:restaurant_app/static/add_review_result_state.dart';
 
-class BodyOfDetailScreen extends StatelessWidget {
+class BodyOfDetailScreen extends StatefulWidget {
   final RestaurantDetail restaurant;
 
   const BodyOfDetailScreen({super.key, required this.restaurant});
+
+  @override
+  State<BodyOfDetailScreen> createState() => _BodyOfDetailScreenState();
+}
+
+class _BodyOfDetailScreenState extends State<BodyOfDetailScreen> {
+  TextEditingController _controllerNama = TextEditingController();
+  TextEditingController _controllerReview = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _controllerNama.dispose();
+    _controllerReview.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +49,9 @@ class BodyOfDetailScreen extends StatelessWidget {
           ),
           flexibleSpace: FlexibleSpaceBar(
             background: Hero(
-              tag: restaurant.id,
+              tag: widget.restaurant.id,
               child: Image.network(
-                restaurant.imageMediumUrl,
+                widget.restaurant.imageMediumUrl,
                 fit: BoxFit.cover,
               ),
             ),
@@ -45,7 +65,7 @@ class BodyOfDetailScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  restaurant.name,
+                  widget.restaurant.name,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
 
@@ -57,14 +77,14 @@ class BodyOfDetailScreen extends StatelessWidget {
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
-                        "${restaurant.city}, ${restaurant.address}",
+                        "${widget.restaurant.city}, ${widget.restaurant.address}",
                         style: const TextStyle(color: Colors.grey),
                       ),
                     ),
                     const SizedBox(width: 8),
                     const Icon(Icons.star, size: 18, color: Colors.orange),
                     const SizedBox(width: 4),
-                    Text(restaurant.rating.toString()),
+                    Text(widget.restaurant.rating.toString()),
                   ],
                 ),
 
@@ -72,7 +92,7 @@ class BodyOfDetailScreen extends StatelessWidget {
 
                 Wrap(
                   spacing: 8,
-                  children: restaurant.categories
+                  children: widget.restaurant.categories
                       .map((category) => Chip(label: Text(category)))
                       .toList(),
                 ),
@@ -84,13 +104,13 @@ class BodyOfDetailScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 8),
-                Text(restaurant.description),
+                Text(widget.restaurant.description),
 
                 const SizedBox(height: 24),
 
                 Text("Makanan", style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 8),
-                ...restaurant.foods.map(
+                ...widget.restaurant.foods.map(
                   (food) => ListTile(
                     leading: const Icon(Icons.fastfood),
                     title: Text(food),
@@ -101,7 +121,7 @@ class BodyOfDetailScreen extends StatelessWidget {
 
                 Text("Minuman", style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 8),
-                ...restaurant.drinks.map(
+                ...widget.restaurant.drinks.map(
                   (drink) => ListTile(
                     leading: const Icon(Icons.local_drink),
                     title: Text(drink),
@@ -115,32 +135,87 @@ class BodyOfDetailScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
 
-                ...restaurant.reviews.map(
-                  (review) => Card(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            review.name,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(review.review),
-                          const SizedBox(height: 4),
-                          Text(
-                            review.date,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                ...widget.restaurant.reviews.map(
+                  (review) => ReviewWidget(customerReview: review),
+                ),
+                const SizedBox(height: 16),
+
+                Text(
+                  'Tulis Ulasan',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: _controllerNama,
+                  decoration: const InputDecoration(
+                    labelText: "Nama",
+                    border: OutlineInputBorder(),
                   ),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: _controllerReview,
+                  maxLines: 3,
+                  decoration: const InputDecoration(
+                    labelText: "Ulasan",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 12),
+
+                Consumer<RestaurantDetailProvider>(
+                  builder: (context, value, child) {
+                    final reviewState = value.reviewResultState;
+
+                    if (reviewState is AddReviewLoadingState) {
+                      return const CircularProgressIndicator();
+                    }
+
+                    if (reviewState is AddReviewSuccessState) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Review berhasil dikirim"),
+                          ),
+                        );
+
+                        context
+                            .read<RestaurantDetailProvider>()
+                            .resetReviewState();
+                      });
+                    }
+
+                    if (reviewState is AddReviewErrorState) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(reviewState.error)),
+                        );
+                      });
+                    }
+
+                    return SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_controllerNama.text.isEmpty ||
+                              _controllerReview.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Semua field harus diisi"),
+                              ),
+                            );
+                            return;
+                          }
+                          context.read<RestaurantDetailProvider>().addReview(
+                            widget.restaurant.id,
+                            _controllerNama.text,
+                            _controllerReview.text,
+                          );
+                        },
+                        child: const Text("Submit Review"),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
