@@ -6,16 +6,31 @@ import 'package:restaurant_app/data/screen/main/main_screen.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
 import 'package:restaurant_app/provider/home/restaurant_list_provider.dart';
 import 'package:restaurant_app/provider/main/index_nav_provider.dart';
+import 'package:restaurant_app/provider/search/search_provider.dart';
 import 'package:restaurant_app/static/navigation_route.dart';
 import 'package:restaurant_app/style/theme/restaurant_theme.dart';
 
 void main() {
-  runApp(MultiProvider(providers: [
-    Provider(create: (context) => ApiServices()),
-    ChangeNotifierProvider(create: (context) => IndexNavProvider()),
-    ChangeNotifierProvider(create: (context) => RestaurantListProvider(context.read<ApiServices>())),
-    ChangeNotifierProvider(create: (context) => RestaurantDetailProvider(context.read<ApiServices>()))
-  ], child: const MainApp()));
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider(create: (context) => ApiServices()),
+        ChangeNotifierProvider(create: (context) => IndexNavProvider()),
+        ChangeNotifierProvider(
+          create: (context) =>
+              RestaurantListProvider(context.read<ApiServices>()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              RestaurantDetailProvider(context.read<ApiServices>()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SearchProvider(context.read<ApiServices>()),
+        ),
+      ],
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
