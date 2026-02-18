@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app/data/screen/detail/body_of_detail_screen.dart';
+import 'package:restaurant_app/screen/detail/body_of_detail_screen.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
 import 'package:restaurant_app/static/restaurant_detail_result_state.dart';
 

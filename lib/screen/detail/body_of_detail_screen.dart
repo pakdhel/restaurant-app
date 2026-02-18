@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/model/restaurant_detail.dart';
-import 'package:restaurant_app/data/screen/detail/review_widget.dart';
+import 'package:restaurant_app/screen/detail/review_widget.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
 import 'package:restaurant_app/static/add_review_result_state.dart';
 

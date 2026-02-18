@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app/data/screen/home/home_screen.dart';
-import 'package:restaurant_app/data/screen/search/search_screen.dart';
+import 'package:restaurant_app/screen/home/home_screen.dart';
+import 'package:restaurant_app/screen/search/search_screen.dart';
 import 'package:restaurant_app/provider/main/index_nav_provider.dart';
 
 class MainScreen extends StatelessWidget {
