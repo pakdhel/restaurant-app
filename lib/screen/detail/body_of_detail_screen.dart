@@ -48,12 +48,28 @@ class _BodyOfDetailScreenState extends State<BodyOfDetailScreen> {
             ),
           ),
           flexibleSpace: FlexibleSpaceBar(
-            background: Hero(
-              tag: widget.restaurant.id,
-              child: Image.network(
-                widget.restaurant.imageMediumUrl,
-                fit: BoxFit.cover,
-              ),
+            background: Stack(
+              children: [
+                Positioned.fill(
+                  child: Hero(
+                    tag: widget.restaurant.id,
+                    child: Image.network(
+                      widget.restaurant.imageMediumUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  right: 20,
+                  bottom: 10,
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.grey.withValues(alpha: 0.5),
+                    shape: CircleBorder(),
+                    onPressed: () {},
+                    child: Icon(Icons.favorite, color: Colors.red),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
