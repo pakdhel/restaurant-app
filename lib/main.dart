@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
+import 'package:restaurant_app/data/local_database_service.dart';
+import 'package:restaurant_app/provider/local_database_provider.dart';
+import 'package:restaurant_app/screen/favorite/favorite_screen.dart';
 import 'package:restaurant_app/screen/detail/detail_screen.dart';
 import 'package:restaurant_app/screen/main/main_screen.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
@@ -27,6 +30,11 @@ void main() {
         ChangeNotifierProvider(
           create: (context) => SearchProvider(context.read<ApiServices>()),
         ),
+        Provider(create: (context) => LocalDatabaseService()),
+        ChangeNotifierProvider(
+          create: (context) =>
+              LocalDatabaseProvider(context.read<LocalDatabaseService>()),
+        ),
       ],
       child: const MainApp(),
     ),
@@ -48,6 +56,7 @@ class MainApp extends StatelessWidget {
         NavigationRoute.detailRoute.name: (context) => DetailScreen(
           restaurantId: ModalRoute.of(context)?.settings.arguments as String,
         ),
+        NavigationRoute.favorite.name: (context) => FavoriteScreen(),
       },
     );
   }
