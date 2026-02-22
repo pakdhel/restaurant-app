@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/screen/favorite/favorite_screen.dart';
 import 'package:restaurant_app/screen/home/home_screen.dart';
 import 'package:restaurant_app/screen/search/search_screen.dart';
 import 'package:restaurant_app/provider/main/index_nav_provider.dart';
@@ -22,6 +23,11 @@ class MainScreen extends StatelessWidget {
             tooltip: 'Home',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.bookmark),
+            label: 'Favorite',
+            tooltip: 'Favorite',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: 'Search',
             tooltip: 'Search',
@@ -32,6 +38,7 @@ class MainScreen extends StatelessWidget {
         builder: (context, value, child) {
           return switch (value.indexBottomNav) {
             0 => HomeScreen(),
+            1 => FavoriteScreen(),
             _ => SearchScreen(),
           };
         },
