@@ -11,7 +11,7 @@ class LocalDatabaseProvider extends ChangeNotifier {
   List<Restaurant>? get restaurantList => _restaurantList;
 
   String _message = "";
-  String get message => message;
+  String get message => _message;
 
   Future<void> loadAllRestaurant() async {
     try {
