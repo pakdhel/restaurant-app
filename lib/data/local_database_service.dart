@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:restaurant_app/data/model/restaurant.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -39,6 +41,13 @@ class LocalDatabaseService {
     );
 
     return id;
+  }
+
+  Future<List<Restaurant>> getAllItems() async {
+    final db = await _initializedDb();
+    final results = await db.query(_tableName);
+
+    return results.map((result) => Restaurant.fromJson(result)).toList();
   }
 
   Future<Restaurant?> getItemById(String id) async {
