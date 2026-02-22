@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:restaurant_app/data/model/restaurant.dart';
 import 'package:sqflite/sqflite.dart';
 
-class LocalDatabaseService extends ChangeNotifier {
+class LocalDatabaseService {
   static const String _databaseName = 'restaurantFavoriteList.db';
   static const String _tableName = 'restaurant_favorite';
   static const int _version = 1;
