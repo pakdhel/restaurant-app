@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
 import 'package:restaurant_app/data/local_database_service.dart';
+import 'package:restaurant_app/data/shared_preferences_service.dart';
 import 'package:restaurant_app/provider/local_database_provider.dart';
+import 'package:restaurant_app/provider/shared_preferences_provider.dart';
 import 'package:restaurant_app/screen/favorite/favorite_screen.dart';
 import 'package:restaurant_app/screen/detail/detail_screen.dart';
 import 'package:restaurant_app/screen/main/main_screen.dart';
@@ -35,6 +37,12 @@ void main() {
           create: (context) =>
               LocalDatabaseProvider(context.read<LocalDatabaseService>()),
         ),
+        Provider(create:(context) => SharedPreferencesService(),),
+        ChangeNotifierProvider(
+          create: (context) => SharedPreferencesProvider(
+            context.read<SharedPreferencesService>(),
+          ),
+        ),
       ],
       child: const MainApp(),
     ),
@@ -46,17 +54,22 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: RestaurantTheme.lightTheme,
-      darkTheme: RestaurantTheme.darkTheme,
-      themeMode: ThemeMode.system,
-      initialRoute: NavigationRoute.homeRoute.name,
-      routes: {
-        NavigationRoute.homeRoute.name: (context) => MainScreen(),
-        NavigationRoute.detailRoute.name: (context) => DetailScreen(
-          restaurantId: ModalRoute.of(context)?.settings.arguments as String,
-        ),
-        NavigationRoute.favorite.name: (context) => FavoriteScreen(),
+    return Consumer<SharedPreferencesProvider>(
+      builder: (context, value, child) {
+        return MaterialApp(
+          theme: RestaurantTheme.lightTheme,
+          darkTheme: RestaurantTheme.darkTheme,
+          themeMode: value.themeMode,
+          initialRoute: NavigationRoute.homeRoute.name,
+          routes: {
+            NavigationRoute.homeRoute.name: (context) => MainScreen(),
+            NavigationRoute.detailRoute.name: (context) => DetailScreen(
+              restaurantId:
+                  ModalRoute.of(context)?.settings.arguments as String,
+            ),
+            NavigationRoute.favorite.name: (context) => FavoriteScreen(),
+          },
+        );
       },
     );
   }

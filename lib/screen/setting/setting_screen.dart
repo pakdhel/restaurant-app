@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app/provider/shared_preferences_provider.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -19,8 +21,10 @@ class SettingScreen extends StatelessWidget {
             child: SwitchListTile(
               title: Text('Mode Gelap'),
               subtitle: Text('Aktifkan Mode Gelap'),
-              value: true,
-              onChanged: (value) {},
+              value: context.watch<SharedPreferencesProvider>().isDarkMode,
+              onChanged: (value) {
+                context.read<SharedPreferencesProvider>().toggleTheme(value);
+              },
             ),
           ),
         ],
