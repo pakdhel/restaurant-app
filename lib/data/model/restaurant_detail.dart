@@ -1,4 +1,5 @@
 import 'package:restaurant_app/data/model/customer_review.dart';
+import 'package:restaurant_app/data/model/restaurant.dart';
 
 class RestaurantDetail {
   final String id;
@@ -79,6 +80,17 @@ class RestaurantDetail {
       reviews: (json['customerReviews'] as List)
           .map((e) => CustomerReview.fromJson(e))
           .toList(),
+    );
+  }
+
+  Restaurant toRestaurant() {
+    return Restaurant(
+      id: id,
+      name: name,
+      description: description,
+      pictureId: pictureId,
+      city: city,
+      rating: rating,
     );
   }
 }
