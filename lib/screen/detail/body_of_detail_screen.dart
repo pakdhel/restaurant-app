@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/model/restaurant_detail.dart';
+import 'package:restaurant_app/screen/detail/favorite_button_widget.dart';
 import 'package:restaurant_app/screen/detail/review_widget.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
 import 'package:restaurant_app/static/add_review_result_state.dart';
@@ -62,12 +63,7 @@ class _BodyOfDetailScreenState extends State<BodyOfDetailScreen> {
                 Positioned(
                   right: 20,
                   bottom: 10,
-                  child: FloatingActionButton(
-                    backgroundColor: Colors.grey.withValues(alpha: 0.5),
-                    shape: CircleBorder(),
-                    onPressed: () {},
-                    child: Icon(Icons.favorite, color: Colors.red),
-                  ),
+                  child: FavoriteButtonWidget(restaurant: widget.restaurant.toRestaurant())
                 ),
               ],
             ),
