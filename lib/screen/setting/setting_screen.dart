@@ -27,6 +27,24 @@ class SettingScreen extends StatelessWidget {
               },
             ),
           ),
+
+          Padding(
+            padding: EdgeInsets.fromLTRB(16, 24, 16, 8),
+            child: Text(
+              'Notifikasi',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ),
+
+          Card(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            child: SwitchListTile(
+              title: Text('Daily Reminder'),
+              subtitle: Text('Aktifkan Daily Reminder'),
+              value: false,
+              onChanged: (value) {},
+            ),
+          ),
         ],
       ),
     );
