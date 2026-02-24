@@ -41,8 +41,14 @@ class SettingScreen extends StatelessWidget {
             child: SwitchListTile(
               title: Text('Daily Reminder'),
               subtitle: Text('Aktifkan Daily Reminder'),
-              value: false,
-              onChanged: (value) {},
+              value: context
+                  .watch<SharedPreferencesProvider>()
+                  .isDailyReminderOn,
+              onChanged: (value) {
+                context.read<SharedPreferencesProvider>().toggleDailyReminder(
+                  value,
+                );
+              },
             ),
           ),
         ],

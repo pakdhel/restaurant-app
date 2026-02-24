@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
 import 'package:restaurant_app/data/local_database_service.dart';
+import 'package:restaurant_app/data/local_notification_service.dart';
 import 'package:restaurant_app/data/shared_preferences_service.dart';
 import 'package:restaurant_app/provider/local_database_provider.dart';
 import 'package:restaurant_app/provider/shared_preferences_provider.dart';
@@ -37,10 +38,16 @@ void main() {
           create: (context) =>
               LocalDatabaseProvider(context.read<LocalDatabaseService>()),
         ),
-        Provider(create:(context) => SharedPreferencesService(),),
+        Provider(create: (context) => SharedPreferencesService()),
+        Provider(
+          create: (context) => LocalNotificationService()
+            ..init()
+            ..configureLocalTimeZone(),
+        ),
         ChangeNotifierProvider(
           create: (context) => SharedPreferencesProvider(
             context.read<SharedPreferencesService>(),
+            context.read<LocalNotificationService>()
           ),
         ),
       ],

@@ -1,9 +1,8 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
-  
-
   static const String _themeKey = "MY_THEME";
+  static const String _reminderKey = "MY_REMINDER";
 
   Future<bool> getTheme() async {
     final prefs = await SharedPreferences.getInstance();
@@ -13,5 +12,15 @@ class SharedPreferencesService {
   Future<void> setTheme(bool isDark) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_themeKey, isDark);
+  }
+
+  Future<void> setReminder(bool isEnabled) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_reminderKey, isEnabled);
+  }
+
+  Future<bool> getReminder() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_reminderKey) ?? false;
   }
 }
