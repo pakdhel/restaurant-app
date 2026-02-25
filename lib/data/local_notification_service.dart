@@ -34,6 +34,8 @@ class LocalNotificationService {
         }
       },
     );
+
+    await requestPermissions();
   }
 
   Future<bool> _isAndroidPermissionGranted() async {
@@ -103,7 +105,7 @@ class LocalNotificationService {
       now.day,
       11,
       0,
-      0
+      0,
     );
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(days: 1));
@@ -113,8 +115,8 @@ class LocalNotificationService {
 
   Future<void> scheduleDailyElevenAMNotification({
     required int id,
-    String channelId = "3",
-    String channelName = "Schedule Notification",
+    String channelId = "lunch_reminder_channel",
+    String channelName = "Lunch Reminder",
   }) async {
     final now = tz.TZDateTime.now(tz.local);
 
@@ -124,6 +126,7 @@ class LocalNotificationService {
       importance: Importance.max,
       priority: Priority.high,
       ticker: 'ticker',
+      sound: const RawResourceAndroidNotificationSound('slow_spring_board'),
     );
     const iOSPlatformChannelSpecifics = DarwinNotificationDetails();
 
@@ -132,15 +135,16 @@ class LocalNotificationService {
       iOS: iOSPlatformChannelSpecifics,
     );
 
-    final datetimeSchedule = _nextInstanceOfElevenAM();
+    // final datetimeSchedule = _nextInstanceOfElevenAM();
+    final datetimeSchedule = _nextTestMinute();
 
     print("NOW              : $now");
     print("SCHEDULED FOR    : $datetimeSchedule");
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
-      'Daily scheduled notification title',
-      'This is a body of daily scheduled notification',
+      '🍽️ Waktunya Makan Siang!',
+      'Laper? Coba makan di restoran hari ini!',
       datetimeSchedule,
       notificationDetails,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
