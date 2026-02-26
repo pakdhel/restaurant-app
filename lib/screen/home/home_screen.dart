@@ -60,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       delegate: SliverChildBuilderDelegate((context, index) {
                         final restaurant = restaurantList[index];
                         return RestaurantCardWidget(
+                          key: Key('restaurant_${restaurant.id}'),
                           restaurant: restaurant,
                           onTap: () {
                             Navigator.pushNamed(
