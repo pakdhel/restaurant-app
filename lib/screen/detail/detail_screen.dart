@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app/screen/detail/body_of_detail_screen.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
 import 'package:restaurant_app/static/restaurant_detail_result_state.dart';
+import 'package:restaurant_app/style/error_screen.dart';
 
 class DetailScreen extends StatefulWidget {
   final String restaurantId;
@@ -38,7 +39,13 @@ class _DetailScreenState extends State<DetailScreen> {
             RestaurantDetailLoadedState(data: var restaurant) =>
               BodyOfDetailScreen(restaurant: restaurant),
             RestaurantDetailErrorState(error: var message) => Center(
-              child: Text(message),
+              child: ErrorScreen(
+                onRetry: () {
+                  context
+                      .read<RestaurantDetailProvider>()
+                      .fetchRestaurantDetail(widget.restaurantId);
+                },
+              ),
             ),
             _ => const SizedBox(),
           };

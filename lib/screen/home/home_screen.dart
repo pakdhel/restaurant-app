@@ -4,6 +4,7 @@ import 'package:restaurant_app/screen/home/restaurant_card_widget.dart';
 import 'package:restaurant_app/provider/home/restaurant_list_provider.dart';
 import 'package:restaurant_app/static/navigation_route.dart';
 import 'package:restaurant_app/static/restaurant_list_result_state.dart';
+import 'package:restaurant_app/style/error_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -50,8 +51,9 @@ class _HomeScreenState extends State<HomeScreen> {
             Consumer<RestaurantListProvider>(
               builder: (context, value, child) {
                 return switch (value.resultState) {
-                  RestaurantListLoadingState() => SliverToBoxAdapter(
-                    child: const Center(child: CircularProgressIndicator()),
+                  RestaurantListLoadingState() => SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Center(child: CircularProgressIndicator()),
                   ),
                   RestaurantListLoadedState(data: var restaurantList) =>
                     SliverList(
@@ -70,7 +72,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       }, childCount: restaurantList.length),
                     ),
                   RestaurantListErrorState(error: var message) =>
-                    SliverToBoxAdapter(child: Center(child: Text(message))),
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: ErrorScreen(
+                        onRetry: () {
+                          context
+                              .read<RestaurantListProvider>()
+                              .fetchRestaurantList();
+                        },
+                      ),
+                    ),
                   _ => SliverToBoxAdapter(child: const SizedBox()),
                 };
               },

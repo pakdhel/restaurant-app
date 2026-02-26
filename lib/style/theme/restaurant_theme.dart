@@ -89,7 +89,6 @@ class RestaurantTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
-        textStyle: RestaurantTextStyles.labelLarge,
       ),
     );
   }

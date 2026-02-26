@@ -144,7 +144,7 @@ class LocalNotificationService {
     await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       '🍽️ Waktunya Makan Siang!',
-      'Laper? Coba makan di restoran hari ini!',
+      '😁 Jangan lupa isi energi hari ini ya!',
       datetimeSchedule,
       notificationDetails,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,

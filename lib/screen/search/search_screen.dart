@@ -4,6 +4,7 @@ import 'package:restaurant_app/screen/home/restaurant_card_widget.dart';
 import 'package:restaurant_app/provider/search/search_provider.dart';
 import 'package:restaurant_app/static/navigation_route.dart';
 import 'package:restaurant_app/static/search_result_state.dart';
+import 'package:restaurant_app/style/error_screen.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -54,7 +55,13 @@ class SearchScreen extends StatelessWidget {
                     child: Center(child: CircularProgressIndicator()),
                   ),
                   SearchResultErrorState(error: var error) =>
-                    SliverToBoxAdapter(child: Center(child: Text(error))),
+                    // SliverToBoxAdapter(
+                    //   child:
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: ErrorScreen(onRetry: () {}),
+                    ),
+                  // ),
                   SearchResultEmptyState() => SliverToBoxAdapter(
                     child: Center(child: Text('Restoran tidak ditemukan')),
                   ),

@@ -63,7 +63,9 @@ class _BodyOfDetailScreenState extends State<BodyOfDetailScreen> {
                 Positioned(
                   right: 20,
                   bottom: 10,
-                  child: FavoriteButtonWidget(restaurant: widget.restaurant.toRestaurant())
+                  child: FavoriteButtonWidget(
+                    restaurant: widget.restaurant.toRestaurant(),
+                  ),
                 ),
               ],
             ),
@@ -200,7 +202,11 @@ class _BodyOfDetailScreenState extends State<BodyOfDetailScreen> {
                     if (reviewState is AddReviewErrorState) {
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(reviewState.error)),
+                          SnackBar(
+                            content: Text(
+                              "Gagal! Periksa Koneksi Internet Anda",
+                            ),
+                          ),
                         );
                       });
                     }
