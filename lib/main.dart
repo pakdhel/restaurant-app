@@ -47,7 +47,7 @@ void main() {
         ChangeNotifierProvider(
           create: (context) => SharedPreferencesProvider(
             context.read<SharedPreferencesService>(),
-            context.read<LocalNotificationService>()
+            context.read<LocalNotificationService>(),
           ),
         ),
       ],

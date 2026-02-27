@@ -72,17 +72,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       }, childCount: restaurantList.length),
                     ),
-                  RestaurantListErrorState(error: var _) =>
-                    SliverFillRemaining(
-                      hasScrollBody: false,
-                      child: ErrorScreen(
-                        onRetry: () {
-                          context
-                              .read<RestaurantListProvider>()
-                              .fetchRestaurantList();
-                        },
-                      ),
+                  RestaurantListErrorState(error: var _) => SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: ErrorScreen(
+                      onRetry: () {
+                        context
+                            .read<RestaurantListProvider>()
+                            .fetchRestaurantList();
+                      },
                     ),
+                  ),
                   _ => SliverToBoxAdapter(child: const SizedBox()),
                 };
               },

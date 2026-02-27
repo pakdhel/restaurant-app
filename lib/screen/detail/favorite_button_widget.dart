@@ -12,8 +12,7 @@ class FavoriteButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<LocalDatabaseProvider>(
       builder: (context, dbProvider, child) {
-        final isFavorited =
-            dbProvider.checkItemBookmark(restaurant.id);
+        final isFavorited = dbProvider.checkItemBookmark(restaurant.id);
 
         return FloatingActionButton(
           backgroundColor: Colors.grey.withValues(alpha: 0.5),

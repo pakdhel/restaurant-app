@@ -6,7 +6,7 @@ class AppRobot {
 
   AppRobot(this.tester);
 
-  Future< void> launchApp() async {
+  Future<void> launchApp() async {
     app.main();
     await tester.pumpAndSettle();
   }

@@ -15,7 +15,7 @@ class RestaurantDetailResponse {
     return RestaurantDetailResponse(
       error: json['error'],
       message: json['message'],
-      restaurant: RestaurantDetail.fromJson(json['restaurant'])
+      restaurant: RestaurantDetail.fromJson(json['restaurant']),
     );
   }
 }

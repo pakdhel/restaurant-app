@@ -11,7 +11,7 @@ class RestaurantTheme {
       useMaterial3: true,
       elevatedButtonTheme: _elevatedButtonTheme,
       inputDecorationTheme: _inputDecorationTheme,
-      outlinedButtonTheme: _outlinedButtonTheme
+      outlinedButtonTheme: _outlinedButtonTheme,
     );
   }
 
@@ -61,10 +61,7 @@ class RestaurantTheme {
 
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(
-          color: RestaurantColors.green.color,
-          width: 2,
-        ),
+        borderSide: BorderSide(color: RestaurantColors.green.color, width: 2),
       ),
 
       errorBorder: OutlineInputBorder(
@@ -72,10 +69,7 @@ class RestaurantTheme {
         borderSide: const BorderSide(color: Colors.red),
       ),
 
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 14,
-      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     );
   }
 
@@ -86,9 +80,7 @@ class RestaurantTheme {
         foregroundColor: Colors.white,
         elevation: 0,
         padding: const EdgeInsets.symmetric(vertical: 14),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     );
   }
@@ -99,9 +91,7 @@ class RestaurantTheme {
         foregroundColor: RestaurantColors.green.color,
         side: BorderSide(color: RestaurantColors.green.color),
         padding: const EdgeInsets.symmetric(vertical: 14),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     );
   }
