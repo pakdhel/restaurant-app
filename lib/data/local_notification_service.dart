@@ -96,30 +96,14 @@ class LocalNotificationService {
     tz.setLocalLocation(tz.getLocation(timeZoneName.identifier));
   }
 
-  tz.TZDateTime _nextInstanceOfElevenAM() {
-    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduledDate = tz.TZDateTime(
-      tz.local,
-      now.year,
-      now.month,
-      now.day,
-      11,
-      0,
-      0,
-    );
-    if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
-    }
-    return scheduledDate;
-  }
-
-  Future<void> scheduleDailyElevenAMNotification({
+  Future<void> showNotification({
     required int id,
+    required String title,
+    required String body,
+    required String payload,
     String channelId = "lunch_reminder_channel",
     String channelName = "Lunch Reminder",
   }) async {
-    final now = tz.TZDateTime.now(tz.local);
-
     final androidPlatformChannelSpecifics = AndroidNotificationDetails(
       channelId,
       channelName,
@@ -135,23 +119,13 @@ class LocalNotificationService {
       iOS: iOSPlatformChannelSpecifics,
     );
 
-    final datetimeSchedule = _nextInstanceOfElevenAM();
-
-    print("NOW              : $now");
-    print("SCHEDULED FOR    : $datetimeSchedule");
-
-    await flutterLocalNotificationsPlugin.zonedSchedule(
+    await flutterLocalNotificationsPlugin.show(
       id,
-      '🍽️ Waktunya Makan Siang!',
-      '😁 Jangan lupa isi energi hari ini ya!',
-      datetimeSchedule,
+      title,
+      body,
       notificationDetails,
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      matchDateTimeComponents: DateTimeComponents.time,
+      payload: payload,
     );
-
-    final pending = await pendingNotificationRequests();
-    print('PENDING COUNT: ${pending.length}');
   }
 
   Future<List<PendingNotificationRequest>> pendingNotificationRequests() async {

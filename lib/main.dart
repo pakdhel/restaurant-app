@@ -15,8 +15,15 @@ import 'package:restaurant_app/provider/main/index_nav_provider.dart';
 import 'package:restaurant_app/provider/search/search_provider.dart';
 import 'package:restaurant_app/static/navigation_route.dart';
 import 'package:restaurant_app/style/theme/restaurant_theme.dart';
+import 'package:workmanager/workmanager.dart';
+import 'package:restaurant_app/utils/background_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Workmanager().initialize(
+    callbackDispatcher,
+  );
+
   runApp(
     MultiProvider(
       providers: [
@@ -47,7 +54,6 @@ void main() {
         ChangeNotifierProvider(
           create: (context) => SharedPreferencesProvider(
             context.read<SharedPreferencesService>(),
-            context.read<LocalNotificationService>(),
           ),
         ),
       ],
