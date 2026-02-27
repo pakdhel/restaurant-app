@@ -54,6 +54,7 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) => SharedPreferencesProvider(
             context.read<SharedPreferencesService>(),
+            context.read<LocalNotificationService>(),
           ),
         ),
       ],

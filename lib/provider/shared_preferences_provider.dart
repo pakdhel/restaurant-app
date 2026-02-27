@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/data/local_notification_service.dart';
 import 'package:restaurant_app/data/shared_preferences_service.dart';
 import 'package:workmanager/workmanager.dart';
 
 class SharedPreferencesProvider extends ChangeNotifier {
   final SharedPreferencesService _service;
+  final LocalNotificationService _notificationService;
 
-  SharedPreferencesProvider(this._service) {
+  SharedPreferencesProvider(this._service, this._notificationService) {
     _loadSetting();
   }
 
@@ -25,7 +27,7 @@ class SharedPreferencesProvider extends ChangeNotifier {
 
   Duration _calculateInitialDelay() {
     final now = DateTime.now();
-    DateTime scheduleTime = DateTime(now.year, now.month, now.day, 21, 25, 0);
+    DateTime scheduleTime = DateTime(now.year, now.month, now.day, 11, 0, 0);
 
     if (now.isAfter(scheduleTime)) {
       scheduleTime = scheduleTime.add(const Duration(days: 1));
@@ -39,6 +41,8 @@ class SharedPreferencesProvider extends ChangeNotifier {
     await _service.setReminder(value);
 
     if (value) {
+      await _notificationService.requestPermissions();
+
       final initialDelay = _calculateInitialDelay();
       Workmanager().registerPeriodicTask(
         "1",
@@ -47,14 +51,8 @@ class SharedPreferencesProvider extends ChangeNotifier {
         frequency: const Duration(days: 1),
       );
 
-      Workmanager().registerOneOffTask(
-        'test_1',
-        'testTask',
-        initialDelay: const Duration(seconds: 5),
-      );
     } else {
-      Workmanager().cancelByUniqueName("1");
-      Workmanager().cancelByUniqueName("test_1");
+      Workmanager().cancelByUniqueName("1");      
     }
     notifyListeners();
   }
