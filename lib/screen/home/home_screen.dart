@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       }, childCount: restaurantList.length),
                     ),
-                  RestaurantListErrorState(error: var message) =>
+                  RestaurantListErrorState(error: var _) =>
                     SliverFillRemaining(
                       hasScrollBody: false,
                       child: ErrorScreen(

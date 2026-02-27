@@ -38,7 +38,7 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
             RestaurantDetailLoadedState(data: var restaurant) =>
               BodyOfDetailScreen(restaurant: restaurant),
-            RestaurantDetailErrorState(error: var message) => Center(
+            RestaurantDetailErrorState(error: var _) => Center(
               child: ErrorScreen(
                 onRetry: () {
                   context

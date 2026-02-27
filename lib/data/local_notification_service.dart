@@ -135,8 +135,7 @@ class LocalNotificationService {
       iOS: iOSPlatformChannelSpecifics,
     );
 
-    // final datetimeSchedule = _nextInstanceOfElevenAM();
-    final datetimeSchedule = _nextTestMinute();
+    final datetimeSchedule = _nextInstanceOfElevenAM();
 
     print("NOW              : $now");
     print("SCHEDULED FOR    : $datetimeSchedule");
@@ -163,10 +162,5 @@ class LocalNotificationService {
 
   Future<void> cancelNotification(int id) async {
     await flutterLocalNotificationsPlugin.cancel(id);
-  }
-
-  tz.TZDateTime _nextTestMinute() {
-    final now = tz.TZDateTime.now(tz.local);
-    return now.add(const Duration(minutes: 1));
   }
 }

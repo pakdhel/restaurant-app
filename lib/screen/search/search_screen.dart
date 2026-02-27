@@ -54,7 +54,7 @@ class SearchScreen extends StatelessWidget {
                   SearchResultLoadingState() => SliverToBoxAdapter(
                     child: Center(child: CircularProgressIndicator()),
                   ),
-                  SearchResultErrorState(error: var error) =>
+                  SearchResultErrorState(error: var _) =>
                     // SliverToBoxAdapter(
                     //   child:
                     SliverFillRemaining(
