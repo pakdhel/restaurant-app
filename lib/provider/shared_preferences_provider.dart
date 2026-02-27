@@ -50,9 +50,8 @@ class SharedPreferencesProvider extends ChangeNotifier {
         initialDelay: initialDelay,
         frequency: const Duration(days: 1),
       );
-
     } else {
-      Workmanager().cancelByUniqueName("1");      
+      Workmanager().cancelByUniqueName("1");
     }
     notifyListeners();
   }

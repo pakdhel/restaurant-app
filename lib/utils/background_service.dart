@@ -28,7 +28,8 @@ void callbackDispatcher() {
         await notificationService.showNotification(
           id: 1,
           title: "🍽️ Yuk, Waktunya Makan Siang!",
-          body: "Cobain makan di ${randomRestaurant.name}, letaknya di ${randomRestaurant.city} loh!",
+          body:
+              "Cobain makan di ${randomRestaurant.name}, letaknya di ${randomRestaurant.city} loh!",
           payload: randomRestaurant.id,
         );
       }

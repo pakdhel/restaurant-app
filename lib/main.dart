@@ -20,9 +20,7 @@ import 'package:restaurant_app/utils/background_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Workmanager().initialize(
-    callbackDispatcher,
-  );
+  Workmanager().initialize(callbackDispatcher);
 
   runApp(
     MultiProvider(
